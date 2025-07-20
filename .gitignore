@@ -5,3 +5,5 @@
 **/.pytest_cache
 .env
 /docs
+certs/*
+!.gitkeep

@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name, too-few-public-methods
+# pylint: disable=invalid-name, too-few-public-methods, too-many-instance-attributes
 
 """
 Module for import setup
@@ -72,7 +72,10 @@ class Setup:
         Args:
             value: The name of the environment variable
             default_value: The default value to use if the environment variable is not set
-            type_value: The type of the environment variable
+            type_value (Type): The type of the environment variable
+        
+        Returns:
+            (TypeVar): The value of the environment variable
         """
 
         try:
