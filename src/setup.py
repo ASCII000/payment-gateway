@@ -36,7 +36,7 @@ class Setup:
         self.API_NAME = self.get_env("API_NAME", "API", str)
         self.API_HOST = self.get_env("API_HOST", "0.0.0.0", str)
         self.API_DESCRIPTION = self.get_env(
-            "API_DESCRIPTION", "API Startup", str
+            "API_DESCRIPTION", "API Payment Gateways", str
         )
 
         self.MYSQL_DB_HOST = self.get_env("DB_HOST", "192.168.3.6", str)
