@@ -1,6 +1,6 @@
 <p align="center">
 
-### ⚠️ Foi utilizado inteligência artificial para elaboração da arquitetura e definição dos padrões aplicados neste projeto? ⚠️
+### ⚠️ Não foi utilizado inteligência artificial para a elaboração da arquitetura! ⚠️
 
 Gostaria de deixar claro desde o início que nenhuma inteligência artificial foi utilizada para a elaboração da arquitetura ou definição dos padrões aplicados neste projeto. Todas as decisões relacionadas à arquitetura, aplicação dos princípios SOLID, CQRS, DDD e demais padrões de projeto foram resultado de minha análise e auditoria completa.
 
