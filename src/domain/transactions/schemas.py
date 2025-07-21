@@ -3,6 +3,7 @@
 """
 Module contains schemas (request, response) for transactions
 """
+
 from decimal import Decimal
 from pydantic import BaseModel, Field, field_validator
 

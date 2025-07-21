@@ -1,6 +1,7 @@
 """
 Router for transactions
 """
+
 from fastapi import APIRouter, Depends
 
 from .service import TransactionService

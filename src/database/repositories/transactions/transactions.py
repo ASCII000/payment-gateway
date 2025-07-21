@@ -1,6 +1,7 @@
 """
 Module contains repositories for transactions
 """
+
 from fastapi import Depends
 
 from dependencies.database import get_db_session
