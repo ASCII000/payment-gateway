@@ -7,8 +7,8 @@ from enum import Enum
 
 from fastapi import APIRouter
 
-from .providers.routers import router as providers_router
-from .transactions.routers import router as transactions_router
+from .manager.routers import router as manager_routers
+from .transactions.routers import router as transactions_routers
 
 
 class Tags(Enum):
@@ -29,6 +29,6 @@ class Routers(TypedDict):
 
 
 routers: List[Routers] = [
-    {"router": providers_router, "prefix": "/v1/providers", "tags": [Tags.PROVIDERS.value]},
-    {"router": transactions_router, "prefix": "/v1/transactions", "tags": [Tags.TRANSACTIONS.value]},
+    {"router": manager_routers, "prefix": "/v1/manager", "tags": [Tags.PROVIDERS.value]},
+    {"router": transactions_routers, "prefix": "/v1/transactions", "tags": [Tags.TRANSACTIONS.value]},
 ]
