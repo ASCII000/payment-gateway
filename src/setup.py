@@ -4,12 +4,16 @@
 Module for import setup
 """
 
+import os
 from typing import TypeVar, Type
 import logging
 
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
+from sqlmodel import SQLModel
 
 from dotenv import dotenv_values
+
+from database.tables import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
 T = TypeVar("T")
@@ -39,26 +43,45 @@ class Setup:
             "API_DESCRIPTION", "API Payment Gateways", str
         )
 
-        self.MYSQL_DB_HOST = self.get_env("DB_HOST", "192.168.3.6", str)
-        self.MYSQL_DB_PORT = self.get_env("DB_PORT", 4303, int)
-        self.MYSQL_DB_USER = self.get_env("DB_USER", "root", str)
-        self.MYSQL_DB_PASSWORD = self.get_env("DB_PASSWORD", "admin2024", str)
-        self.MYSQL_DB_NAME = self.get_env("DB_NAME", "fastapi_essentials", str)
+        self.SQLITE_DB_PATH = self.get_env(
+            "SQLITE_DB_PATH", "./db/sqlite.db", str
+        )
+
+    def create_sqlite_db_folder(self) -> None:
+        """
+        Create database folder
+        """
+        os.makedirs(os.path.dirname(self.SQLITE_DB_PATH), exist_ok=True)
 
     async def create_relational_db_engine(self) -> AsyncEngine:
         """
-        Create database engine
+        Create database engine with sqlite db path
         """
-        db_url = "mysql+aiomysql://{}:{}@{}:{}/{}".format(  # pylint: disable=consider-using-f-string
-            self.MYSQL_DB_USER,
-            self.MYSQL_DB_PASSWORD,
-            self.MYSQL_DB_HOST,
-            self.MYSQL_DB_PORT,
-            self.MYSQL_DB_NAME,
-        )
 
+        # Create the database folder
+        self.create_sqlite_db_folder()
+
+        # Setup engine
+        db_url = f"sqlite+aiosqlite:///{self.SQLITE_DB_PATH}"
         engine = create_async_engine(db_url)
+
+        # Create tables
+        await self.create_tables(engine)
+
+        # Return engine
         return engine
+
+    async def create_tables(self, engine: AsyncEngine) -> None:
+        """
+        Create tables in database
+
+        Args:
+            engine: Database engine
+        """
+
+        # Create tables
+        async with engine.begin() as conn:
+            await conn.run_sync(SQLModel.metadata.create_all)
 
     def get_env(
         self,
