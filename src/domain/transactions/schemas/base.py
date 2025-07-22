@@ -1,18 +1,17 @@
 #pylint: disable=no-self-argument
 
 """
-Module contains schemas (request, response) for transactions
+Module contains base schemas for requests and responses
 """
-
 from decimal import Decimal
-from pydantic import BaseModel, Field, field_validator
 
+from pydantic import BaseModel, Field, field_validator
 from fastapi.exceptions import RequestValidationError
 
 from utils.validators import validate_cpf_cnpj
 
 
-class PixChargeRequestSchema(BaseModel):
+class BaseChargeRequestSchema(BaseModel):
     """
     Schema for pix charge request
     """
@@ -34,10 +33,11 @@ class PixChargeRequestSchema(BaseModel):
         return value
 
 
-class PixChargeResponseSchema(BaseModel):
+class BaseResponseSchema(BaseModel):
     """
     Schema for pix charge response
     """
+    id: int = Field(..., description="ID da cobrança")
+    gateway_id: str = Field(..., description="ID da cobrança no provedor de pagamento")
     nome_cliente: str = Field(..., description="Nome do cliente da cobrança")
     valor: Decimal = Field(..., description="Valor da cobrança")
-    pix_copia_cola: str = Field(..., description="Pix copia e cola")
