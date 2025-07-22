@@ -1,5 +1,5 @@
 """
-Module contains repositories for transactions
+Module contains base for repositories
 """
 
 from fastapi import Depends
@@ -7,10 +7,10 @@ from fastapi import Depends
 from dependencies.database import get_db_session
 
 
-class TransactionsRepository:
+class BaseRepository:
     """
-    Class contains methods for transactions
+    Class base for repositories
     """
 
     def __init__(self, db_session = Depends(get_db_session)) -> None:
-        self.db_session = db_session
+        self.session = db_session

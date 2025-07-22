@@ -6,4 +6,5 @@
 .env
 /docs
 certs/*
+db/*
 !.gitkeep
